@@ -12,7 +12,7 @@ const isLocalUrl = (href: string) => {
   try {
     const url = new URL(href)
     if (window.location.origin === url.origin) {
-      return true
+      return url.pathname === "/garden" || url.pathname.startsWith("/garden/")
     }
   } catch (e) {}
   return false
@@ -164,9 +164,10 @@ function createRouter() {
     })
 
     window.addEventListener("popstate", (event) => {
-      const { url } = getOpts(event) ?? {}
+      const url = new URL(window.location.toString())
+      if (!isLocalUrl(url.href)) return
       if (window.location.hash && window.location.pathname === url?.pathname) return
-      navigate(new URL(window.location.toString()), true)
+      navigate(url, true)
       return
     })
   }
