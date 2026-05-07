@@ -1,10 +1,11 @@
 import { QuartzEmitterPlugin } from "../types"
 import { QuartzComponentProps } from "../../components/types"
 import BodyConstructor from "../../components/Body"
+import HeaderConstructor from "../../components/Header"
 import { pageResources, renderPage } from "../../components/renderPage"
 import { FullPageLayout } from "../../cfg"
 import { FullSlug } from "../../util/path"
-import { sharedPageComponents } from "../../../quartz.layout"
+import { defaultContentPageLayout, sharedPageComponents } from "../../../quartz.layout"
 import { NotFound } from "../../components"
 import { defaultProcessedContent } from "../vfile"
 import { write } from "./helpers"
@@ -13,19 +14,38 @@ import { i18n } from "../../i18n"
 export const NotFoundPage: QuartzEmitterPlugin = () => {
   const opts: FullPageLayout = {
     ...sharedPageComponents,
+    ...defaultContentPageLayout,
     pageBody: NotFound(),
-    beforeBody: [],
-    left: [],
-    right: [],
   }
 
-  const { head: Head, pageBody, footer: Footer } = opts
+  const {
+    head: Head,
+    header,
+    beforeBody,
+    pageBody,
+    afterBody,
+    left,
+    right,
+    footer: Footer,
+  } = opts
+  const Header = HeaderConstructor()
   const Body = BodyConstructor()
 
   return {
     name: "404Page",
     getQuartzComponents() {
-      return [Head, Body, pageBody, Footer]
+      return [
+        Head,
+        Header,
+        Body,
+        ...header,
+        ...beforeBody,
+        pageBody,
+        ...afterBody,
+        ...left,
+        ...right,
+        Footer,
+      ]
     },
     async *emit(ctx, _content, resources) {
       const cfg = ctx.cfg.configuration
