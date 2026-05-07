@@ -3,6 +3,7 @@ title: Suzumi's little garden
 tags:
   - garden
   - ideas
+cover: og-image.png
 ---
 Hi there and welcome to my little digital garden 🌱. This my personal space to seed, nurture and grow new ideas/thoughts/knowledge for myself.
 
