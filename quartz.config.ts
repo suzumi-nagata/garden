@@ -16,7 +16,7 @@ const config: QuartzConfig = {
       provider: "plausible",
     },
     locale: "en-US",
-    baseUrl: "suzumi-nagata.github.io",
+    baseUrl: "suzumi-nagata.github.io/garden",
     ignorePatterns: ["private", "templates", ".obsidian", "Dailies", ".stfolder"],
     defaultDateType: "modified",
     theme: {
