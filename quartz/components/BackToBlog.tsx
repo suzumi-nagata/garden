@@ -1,7 +1,11 @@
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
 
 const BackToBlog: QuartzComponent = ({ cfg, displayClass }: QuartzComponentProps) => {
-  const blogUrl = cfg?.baseUrl ? `https://${cfg.baseUrl}` : undefined
+  const blogUrl = cfg?.baseBlogUrl
+    ? `https://${cfg.baseBlogUrl}`
+    : cfg?.baseUrl
+      ? `https://${cfg.baseUrl}`
+      : undefined
   return (
     <a href={blogUrl} class={`back-to-blog ${displayClass ?? ""}`}>
       <svg
