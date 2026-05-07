@@ -291,12 +291,14 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
 })
 
 window.addEventListener("resize", function () {
-  // Desktop explorer opens by default, and it stays open when the window is resized
-  // to mobile screen size. Applies `no-scroll` to <html> in this edge case.
   const explorer = document.querySelector(".explorer")
-  if (explorer && !explorer.classList.contains("collapsed")) {
-    document.documentElement.classList.add("mobile-no-scroll")
-    return
+  if (explorer) {
+    const mobileExplorer = explorer.querySelector(".mobile-explorer")
+    if (mobileExplorer && mobileExplorer.checkVisibility()) {
+      explorer.classList.add("collapsed")
+      explorer.setAttribute("aria-expanded", "false")
+      document.documentElement.classList.remove("mobile-no-scroll")
+    }
   }
 })
 
