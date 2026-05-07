@@ -261,7 +261,7 @@ a {
         height: unset;
         width: 100%;
         flex-direction: row;
-        padding: 0;
+        padding: 0 1rem;
         & > * {
           flex: 1;
           max-height: 24rem;
