@@ -89,10 +89,10 @@ article {
   }
 
   @media all and ($mobile) {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    margin-right: 1.5rem; // Add space between back-to-blog and search
-    padding: 0.6rem 1rem; // Larger touch target for mobile
-    font-size: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-right: 0.5rem; // Reduced space between back-to-blog and search
+    padding: 0.6rem 0.8rem; // Slightly smaller padding
+    font-size: 0.85rem;
   }
 }

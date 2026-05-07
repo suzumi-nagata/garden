@@ -8,7 +8,7 @@ html {
   scroll-behavior: smooth;
   text-size-adjust: none;
   overflow-x: hidden;
-  width: 100vw;
+  width: 100%;
 
   @media all and ($mobile) {
     scroll-padding-top: 4rem;
@@ -212,7 +212,7 @@ a {
     }
 
     @media all and not ($desktop) {
-      padding: 0 1rem;
+      padding: 0;
     }
     @media all and ($mobile) {
       margin: 0 auto;
@@ -239,7 +239,8 @@ a {
         display: flex;
         height: unset;
         flex-direction: row;
-        padding: 0;
+        flex-wrap: wrap;
+        padding: 0 1rem;
         padding-top: 2rem;
       }
     }
@@ -295,6 +296,9 @@ a {
       min-width: 100%;
       margin-left: auto;
       margin-right: auto;
+      @media all and not ($desktop) {
+        padding: 0 1rem;
+      }
       @media all and ($tablet) {
         margin-right: 0;
       }
