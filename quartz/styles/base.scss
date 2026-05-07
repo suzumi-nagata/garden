@@ -162,6 +162,7 @@ a {
 .page {
   max-width: calc(#{map.get($breakpoints, desktop)} + 300px);
   margin: 0 auto;
+  width: 100%;
   & article {
     & > h1 {
       font-size: 2rem;
@@ -226,6 +227,7 @@ a {
       display: flex;
       height: 100vh;
       position: sticky;
+      min-width: 0;
     }
 
     & .sidebar.left {
@@ -293,7 +295,7 @@ a {
     & .center,
     & footer {
       max-width: 100%;
-      min-width: 100%;
+      min-width: 0;
       margin-left: auto;
       margin-right: auto;
       @media all and not ($desktop) {
