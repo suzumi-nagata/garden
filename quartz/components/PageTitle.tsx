@@ -23,6 +23,8 @@ PageTitle.css = `
 @media all and (max-width: 800px) {
   .page-title {
     font-size: 1.4rem;
+    flex-basis: 100%;
+    margin-bottom: 0.5rem;
   }
 }
 `
