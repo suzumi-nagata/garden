@@ -9,7 +9,7 @@ Hi there and welcome to my little digital garden 🌱. This my personal space to
 
 ![[gardener.png]]
 
-Differently from my main [[https://suzumi-nagata.github.io|blog page]], entries here might be in different stages of development, some might be just some random ideas, or incomplete thoughts, others might have a more formally defined context, and others could even be big projects that I need structuring.
+Differently from my main [blog page](https://suzumi-nagata.github.io), entries here might be in different stages of development, some might be just some random ideas, or incomplete thoughts, others might have a more formally defined context, and others could even be big projects that I need structuring.
 
 The objective here is less of conveying information and more about nurturing my thoughts to bring me new insights. When I think I've gather enough inspiration, then something could become a main blog post with their proper research and review. Until that happens, this garden is a simple box of ideas.
 
