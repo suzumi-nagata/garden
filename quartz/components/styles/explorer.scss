@@ -136,6 +136,11 @@ button.desktop-explorer {
       opacity: 0.75;
       pointer-events: all;
 
+      &::before {
+        content: "\2022";
+        padding-right: 0.5rem;
+      }
+
       &.active {
         opacity: 1;
         color: var(--tertiary);
@@ -170,6 +175,12 @@ button.desktop-explorer {
   display: flex;
   align-items: center;
   user-select: none;
+
+  &::before {
+    content: "\2022";
+    padding-right: 0.5rem;
+    color: var(--secondary);
+  }
 
   & div > a {
     color: var(--secondary);
