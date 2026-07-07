@@ -18,7 +18,7 @@ const config: QuartzConfig = {
     locale: "en-US",
     baseUrl: "suzumi-nagata.github.io/garden",
     baseBlogUrl: "suzumi-nagata.github.io",
-    ignorePatterns: ["private", "templates", ".obsidian", "Dailies", ".stfolder"],
+    ignorePatterns: ["private", "templates", ".obsidian", "Dailies", ".stfolder", "Clippings"],
     defaultDateType: "modified",
     theme: {
       fontOrigin: "googleFonts",
