@@ -176,12 +176,6 @@ button.desktop-explorer {
   align-items: center;
   user-select: none;
 
-  &::before {
-    content: "\2022";
-    padding-right: 0.5rem;
-    color: var(--secondary);
-  }
-
   & div > a {
     color: var(--secondary);
     font-family: var(--headerFont);
