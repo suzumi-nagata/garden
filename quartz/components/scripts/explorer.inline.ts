@@ -305,3 +305,38 @@ window.addEventListener("resize", function () {
 function setFolderState(folderElement: HTMLElement, collapsed: boolean) {
   return collapsed ? folderElement.classList.remove("open") : folderElement.classList.add("open")
 }
+
+// Swipe gestures for mobile to open the explorer menu
+let swipeStartX = 0;
+let swipeStartY = 0;
+const SWIPE_THRESHOLD = 50;
+
+document.addEventListener('touchstart', (e) => {
+  const t = e.touches[0];
+  swipeStartX = t.pageX;
+  swipeStartY = t.pageY;
+}, false);
+
+document.addEventListener('touchend', (e) => {
+  const t = e.changedTouches[0];
+  const deltaX = t.pageX - swipeStartX;
+  const deltaY = Math.abs(t.pageY - swipeStartY);
+  if (deltaY > SWIPE_THRESHOLD) return;
+  if (Math.abs(deltaX) < SWIPE_THRESHOLD) return;
+
+  const explorer = document.querySelector('.explorer') as HTMLElement | null;
+  if (!explorer) return;
+
+  // Open explorer if it's collapsed and swipe right
+  if (explorer.classList.contains('collapsed') && deltaX > 0) {
+    explorer.classList.remove('collapsed');
+    explorer.setAttribute('aria-expanded', 'true');
+    document.documentElement.classList.add('mobile-no-scroll');
+  }
+  // Close explorer on swipe left
+  if (!explorer.classList.contains('collapsed') && deltaX < 0) {
+    explorer.classList.add('collapsed');
+    explorer.setAttribute('aria-expanded', 'false');
+    document.documentElement.classList.remove('mobile-no-scroll');
+  }
+}, false);
