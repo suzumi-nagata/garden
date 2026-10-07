@@ -120,6 +120,10 @@ describe("transforms", () => {
         ["test/special chars?.md", "test/special-chars"],
         ["test/special chars #3.md", "test/special-chars-3"],
         ["cool/what about r&d?.md", "cool/what-about-r-and-d"],
+        // v5 url normalization: lowercase + strip filesystem-illegal chars
+        ["content/Thoughts on AI.md", "content/thoughts-on-ai"],
+        ["Cryptography/Intro to RSA.md", "cryptography/intro-to-rsa"],
+        ["test/illegal<>:\"|*chars.md", "test/illegalchars"],
       ],
       path.slugifyFilePath,
       path.isFilePath,
@@ -148,6 +152,9 @@ describe("transforms", () => {
         ["content/with spaces", "./content/with-spaces"],
         ["content/with spaces/index", "./content/with-spaces/"],
         ["content/with spaces#and Anchor!", "./content/with-spaces#and-anchor"],
+        // v5 url normalization: link targets are lowercased too
+        ["Content/Test Page.md", "./content/test-page"],
+        ["Tags/", "./tags/"],
       ],
       path.transformInternalLink,
       (_x: string): _x is string => true,

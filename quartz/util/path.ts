@@ -54,6 +54,9 @@ export function getFullSlug(window: Window): FullSlug {
   return res
 }
 
+// Ported from Quartz v5's `slugifyPath` (@quartz-community/utils): strips
+// filesystem-illegal characters and lowercases each segment so URLs are
+// normalized and link matching is case-insensitive (Obsidian semantics).
 function sluggify(s: string): string {
   return s
     .split("/")
@@ -63,7 +66,9 @@ function sluggify(s: string): string {
         .replace(/&/g, "-and-")
         .replace(/%/g, "-percent")
         .replace(/\?/g, "")
-        .replace(/#/g, ""),
+        .replace(/#/g, "")
+        .replace(/[<>:"|*]/g, "")
+        .toLowerCase(),
     )
     .join("/") // always use / as sep
     .replace(/\/$/, "")
