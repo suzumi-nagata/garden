@@ -133,11 +133,34 @@ article,
     align-items: center;
     gap: 0.5rem;
     padding: 1rem;
+    // The bar sticks to the top and page content scrolls underneath it, so it
+    // needs an opaque background — the translucent glass treatment below is
+    // only safe on the non-sticky sidebars.
+    background-color: var(--light);
   }
 
   // Explorer: roomier mobile drawer
   .explorer .explorer-content {
     padding: 6rem 1.5rem 2rem 1.5rem;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Reader mode on mobile (plugin: @quartz-community/reader-mode)
+//
+// The plugin hides both sidebars when `reader-mode="on"` by fading them to
+// `opacity: 0`, bringing them back on hover — the element stays in flow, so
+// revealing one never reflows the page. On mobile the left sidebar *is* the
+// sticky top bar — site title, search, theme and reader-mode toggles — and
+// holds the explorer drawer, so fading it would strand the reader with no
+// navigation and no visible way to toggle the mode back off; it stays put.
+// The graph (the right sidebar, rendered at the bottom on mobile) keeps the
+// plugin's behaviour untouched: invisible, but in place and revealed on
+// hover — a tap on touch screens, which is how they emulate hover.
+// ---------------------------------------------------------------------------
+@media all and ($mobile) {
+  :root[reader-mode="on"] .sidebar.left {
+    opacity: 1;
   }
 }
 
