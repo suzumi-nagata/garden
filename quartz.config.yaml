@@ -31,8 +31,8 @@ configuration:
         dark: "#201d36"
         secondary: "#125672"
         tertiary: "#7c3aed"
-        highlight: "rgba(18, 86, 114, 0.08)"
-        textHighlight: "rgba(234, 157, 52, 0.25)"
+        highlight: rgba(18, 86, 114, 0.08)
+        textHighlight: rgba(234, 157, 52, 0.25)
       darkMode:
         light: "#020617"
         lightgray: "#1e293b"
@@ -41,12 +41,9 @@ configuration:
         dark: "#f1f5f9"
         secondary: "#b063e0"
         tertiary: "#00ffff"
-        highlight: "rgba(176, 99, 224, 0.1)"
+        highlight: rgba(176, 99, 224, 0.1)
         textHighlight: "#b3aa0288"
 plugins:
-  # Frontmatter parsing + (hidden) properties panel.
-  # We keep the plugin enabled for frontmatter parsing, but hide the v5
-  # properties table: tags are shown by the tag-list plugin instead (v4 look).
   - source: "@quartz-community/note-properties"
     enabled: true
     options:
@@ -144,8 +141,6 @@ plugins:
     enabled: true
   - source: "@quartz-community/og-image"
     enabled: true
-  # disabled: this is a GitHub Pages project site (suzumi-nagata.github.io/garden),
-  # not a custom domain — a CNAME file would clash with the main blog's domain
   - source: "@quartz-community/cname"
     enabled: false
   - source: "@quartz-community/canvas-page"
@@ -189,7 +184,6 @@ plugins:
     layout:
       position: beforeBody
       priority: 20
-  # Tags at the top of the page (the v4 look)
   - source: "@quartz-community/tag-list"
     enabled: true
     layout:
@@ -267,7 +261,6 @@ plugins:
       position: afterBody
       priority: 50
       display: all
-  # --- Local garden plugins ---
   - source: ./plugins/back-to-blog
     enabled: true
     options:
@@ -276,9 +269,12 @@ plugins:
     layout:
       position: left
       priority: 30
-  # Adds swipe gestures to open/close the explorer on mobile
   - source: ./plugins/explorer-swipe
     enabled: true
+  - source: github:quartz-community/tui
+    enabled: true
+    options: {}
+    order: 50
 layout:
   groups:
     toolbar:
@@ -286,17 +282,11 @@ layout:
       direction: row
       gap: 0.5rem
   byPageType:
-    # 404 keeps the regular page layout (sidebars + toolbar); the hero markup
-    # comes from quartz/components/pages/404.tsx, so the article title and
-    # reading-time chrome are cleared
     "404":
       template: default
       positions:
         beforeBody: []
     content: {}
-    # List pages (folders/tags) have no tag list and no right column, like v4.
-    # Note: `exclude` matches the *source string* (see extractPluginName), so
-    # npm plugins must be listed with their full scoped name.
     folder:
       exclude:
         - "@quartz-community/reader-mode"

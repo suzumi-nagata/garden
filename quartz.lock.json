@@ -12,6 +12,12 @@
       "resolved": "/home/nagata/garden/plugins/explorer-swipe",
       "commit": "local",
       "installedAt": "2026-10-08T02:41:17.429Z"
+    },
+    "tui": {
+      "source": "github:quartz-community/tui",
+      "resolved": "https://github.com/quartz-community/tui.git",
+      "commit": "d1d51a626ef84a6f4d0933cce2b834a9db92282b",
+      "installedAt": "2026-10-08T03:48:31.506Z"
     }
   }
 }
