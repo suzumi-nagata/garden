@@ -1,15 +1,35 @@
 import { i18n } from "../../i18n"
 import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "../types"
 
+/**
+ * 404 page body, styled after the main blog's 404
+ * (https://suzumi-nagata.github.io): outlined "404", a large headline, a
+ * monospace apology and a floating character logo.
+ *
+ * Styles live in `quartz/styles/custom.scss` under "404 page".
+ */
 const NotFound: QuartzComponent = ({ cfg, ctx }: QuartzComponentProps) => {
   const url = new URL(`https://${cfg.baseUrl ?? "example.com"}`)
   const baseDir = ctx.argv.serve ? "/" : url.pathname
+  const root = baseDir.endsWith("/") ? baseDir : `${baseDir}/`
 
   return (
-    <article class="popover-hint">
-      <h1>404</h1>
-      <p>{i18n(cfg.locale).pages.error.notFound}</p>
-      <a href={baseDir}>{i18n(cfg.locale).pages.error.home}</a>
+    <article class="not-found-hero">
+      <div class="not-found-content">
+        <div class="not-found-text">
+          <h1 class="not-found-title">
+            <span class="not-found-outline">404</span>
+            <span class="not-found-heading">This Page Does Not Exist</span>
+          </h1>
+          <p class="not-found-subtitle">&gt; {i18n(cfg.locale).pages.error.notFound}</p>
+          <a href={baseDir} class="not-found-button">
+            {i18n(cfg.locale).pages.error.home}
+          </a>
+        </div>
+        <div class="not-found-image">
+          <img src={`${root}static/404-logo.png`} alt="" class="not-found-logo" />
+        </div>
+      </div>
       <script
         dangerouslySetInnerHTML={{
           __html: `
