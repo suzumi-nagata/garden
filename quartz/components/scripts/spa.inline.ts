@@ -8,12 +8,28 @@ const NODE_TYPE_ELEMENT = 1
 let announcer = document.createElement("route-announcer")
 const isElement = (target: EventTarget | null): target is Element =>
   (target as Node)?.nodeType === NODE_TYPE_ELEMENT
+const getBasePath = (): string => {
+  const basePath = document.body?.dataset.basepath ?? ""
+  return basePath.endsWith("/") ? basePath.slice(0, -1) : basePath
+}
+
+/**
+ * A URL is only "local" (SPA-navigable) when it is on this origin *and* inside
+ * the site's base path. Sibling sites on the same origin — e.g. the main blog
+ * at `/` — then get a normal full navigation instead of having their HTML
+ * morphed into this document. (Ported from the Quartz 4 garden setup.)
+ */
 const isLocalUrl = (href: string) => {
   try {
     const url = new URL(href)
-    if (window.location.origin === url.origin) {
+    if (window.location.origin !== url.origin) {
+      return false
+    }
+    const basePath = getBasePath()
+    if (basePath.length === 0) {
       return true
     }
+    return url.pathname === basePath || url.pathname.startsWith(`${basePath}/`)
   } catch (e) {}
   return false
 }
