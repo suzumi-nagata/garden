@@ -1,0 +1,17 @@
+{
+  "version": "1.0.0",
+  "plugins": {
+    "back-to-blog": {
+      "source": "./plugins/back-to-blog",
+      "resolved": "/home/nagata/garden/plugins/back-to-blog",
+      "commit": "local",
+      "installedAt": "2026-10-08T02:41:17.429Z"
+    },
+    "explorer-swipe": {
+      "source": "./plugins/explorer-swipe",
+      "resolved": "/home/nagata/garden/plugins/explorer-swipe",
+      "commit": "local",
+      "installedAt": "2026-10-08T02:41:17.429Z"
+    }
+  }
+}
