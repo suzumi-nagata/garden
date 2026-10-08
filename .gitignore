@@ -12,3 +12,7 @@ replit.nix
 .quartz/
 quartz/cli/tui/dist/
 .turbo/
+.stfolder
+Clippings
+content/Read Later.md
+plugins/*/node_modules
