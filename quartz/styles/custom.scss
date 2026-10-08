@@ -48,6 +48,14 @@ body {
   .center,
   footer {
     min-width: 0;
+    // The base styles give these grid items `margin: auto`, which stops them
+    // from stretching to the column: they are shrink-to-fit and centred, so
+    // long pages look full-width (their prose is wider than the column) while
+    // a short page — one or two lines — collapses to fit-content and floats in
+    // the middle of the screen. `width: 100%` keeps both cases full-width;
+    // border-box so the mobile side padding can't push past the grid column.
+    width: 100%;
+    box-sizing: border-box;
 
     @media all and not ($desktop) {
       padding: 0 1rem;
