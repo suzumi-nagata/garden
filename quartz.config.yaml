@@ -108,7 +108,10 @@ plugins:
       renderEngine: katex
     order: 80
   - source: "@quartz-community/citations"
-    enabled: false
+    enabled: true
+    options:
+      linkCitations: true
+      csl: https://raw.githubusercontent.com/suzumi-nagata/csl-styles/refs/heads/master/elsevier-vancouver.csl
     order: 85
   - source: "@quartz-community/hard-line-breaks"
     enabled: false
