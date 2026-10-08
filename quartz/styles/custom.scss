@@ -324,6 +324,31 @@ article {
 }
 
 // ---------------------------------------------------------------------------
+// Citations / bibliography (plugin: @quartz-community/citations)
+//
+// The Elsevier CSL style sets `second-field-align="flush"`, so citeproc emits
+// each entry as `<div class="csl-left-margin">[n]</div>` followed by
+// `<div class="csl-right-inline">…</div>`. Both are block elements, so without
+// these rules the number and the reference stack on separate lines. The main
+// blog ships these same two rules as an inline <style> beside its bibliography.
+// ---------------------------------------------------------------------------
+.csl-left-margin {
+  float: left;
+  padding-right: 0;
+}
+
+.csl-right-inline {
+  margin: 0 0 0 2em;
+}
+
+// Keep the floated citation number contained within its own entry.
+.csl-entry::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+// ---------------------------------------------------------------------------
 // Back to Blog Link Styling (component: plugins/back-to-blog)
 // ---------------------------------------------------------------------------
 .back-to-blog {
