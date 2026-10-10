@@ -277,6 +277,8 @@ plugins:
       priority: 30
   - source: ./plugins/explorer-swipe
     enabled: true
+  - source: ./plugins/explorer-defaults
+    enabled: true
   - source: github:quartz-community/tui
     enabled: true
     options: {}
