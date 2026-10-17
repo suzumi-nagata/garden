@@ -6,9 +6,10 @@ tags:
 
 # The idea, in one sentence
 
-# Why it matters
+# What it's based on
 
-# Where it came from
+# What it connects to or contradicts
+-
 
-# Links
+# Sources
 -

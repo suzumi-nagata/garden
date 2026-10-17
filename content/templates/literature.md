@@ -13,15 +13,15 @@ read: false
 
 # Why I picked this up
 
-# Summary in my own words
+# What the source argues (in my words)
 
-# Key claims
+# Key claims (with locations)
 -
 
-# Quotes
+# Quotes (with locations)
 >
 
-# Open questions
+# Where I disagree / what's missing
 
 # Permanent notes grown from this
 -
