@@ -15,6 +15,8 @@ tags:
   - ai
   - claude
 read: false
+noCite:
+  - anthropic_claude_ecdsa_2026
 ---
 
 # Why I picked this up

@@ -225,6 +225,7 @@
 
 @misc{anthropic_redesigning_source_control_2026,
     title = {Redesigning source control at {Anthropic}},
+    author = {{Anthropic}},
     url = {https://www.anthropic.com/engineering/redesigning-source-control},
     abstract = {As our merges per day grew more than tenfold, source control became our biggest development bottleneck. Here, we share how we migrated to an in-house version control system in five months.},
     language = {en},
@@ -236,10 +237,27 @@
 
 @misc{anthropic_claude_ecdsa_2026,
     title = {Claude reveals {ECDSA} curve origins},
+    author = {Wood, John and de Valence, Henry and Howell, Ava and Voase, Zack and Sweet, Lucy and Omidi, Amir and Crowley, Paul and McGinniss, Iain and Carlini, Nicholas and Weis, Steve},
     url = {https://www.anthropic.com/research/ecdsa-curve-origins},
     abstract = {The decades-old mystery of the origins of one of the most popular cryptographic standards has been explained.},
     language = {en},
     urldate = {2026-10-17},
     month = oct,
     year = 2026,
+}
+
+
+@misc{russell_storyscope:_2026,
+    title = {{StoryScope}: {Investigating} idiosyncrasies in {AI} fiction},
+    shorttitle = {{StoryScope}},
+    url = {http://arxiv.org/abs/2604.03136},
+    doi = {10.48550/arXiv.2604.03136},
+    abstract = {As AI-generated fiction becomes increasingly prevalent, questions of authorship and originality are becoming central to how written work is evaluated. While most existing work in this space focuses on identifying surface-level signatures of AI writing, we ask instead whether AI-generated stories can be distinguished from human ones without relying on stylistic signals, focusing on discourse-level narrative choices such as character agency and chronological discontinuity. We propose StoryScope, a pipeline that automatically induces a fine-grained, interpretable feature space of discourse-level narrative features across 10 dimensions. We apply StoryScope to a parallel corpus of 10,272 writing prompts, each written by a human author and five LLMs, yielding 61,608 stories, each {\textasciitilde}5,000 words, and 304 extracted features per story. Narrative features alone achieve 93.2\% macro-F1 for human vs. AI detection and 68.4\% macro-F1 for six-way authorship attribution, retaining over 97\% of the performance of models that include stylistic cues. A compact set of 30 core narrative features captures much of this signal: AI stories over-explain themes and favor tidy, single-track plots while human stories frame protagonist' choices as more morally ambiguous and have increased temporal complexity. Per-model fingerprint features enable six-way attribution: for example, Claude produces notably flat event escalation, GPT over-indexes on dream sequences, and Gemini defaults to external character description. We find that AI-generated stories cluster in a shared region of narrative space, while human-authored stories exhibit greater diversity. More broadly, these results suggest that differences in underlying narrative construction, not just writing style, can be used to separate human-written original works from AI-generated fiction.},
+    urldate = {2026-10-18},
+    publisher = {arXiv},
+    author = {Russell, Jenna and Rajendhran, Rishanth and Pham, Chau Minh and Iyyer, Mohit and Wieting, John},
+    month = aug,
+    year = 2026,
+    note = {arXiv:2604.03136 [cs]},
+    keywords = {Computer Science - Computation and Language},
 }
