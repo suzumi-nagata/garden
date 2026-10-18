@@ -15,13 +15,10 @@ read: false
 
 # What the source argues (in my words)
 
-# Key claims (with locations)
+# Key claims (in my words, with locations)
+
 -
 
-# Quotes (with locations)
+# Quotes (verbatim, with locations)
+
 >
-
-# Where I disagree / what's missing
-
-# Permanent notes grown from this
--
