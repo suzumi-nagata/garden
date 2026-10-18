@@ -10,9 +10,14 @@ configuration:
   baseUrl: suzumi-nagata.github.io/garden
   ignorePatterns:
     - private
+    # The `/**` variants matter for `--serve`/`--watch`: its per-file ignore
+    # check uses minimatch against each changed path, so a bare directory name
+    # only matches the directory itself, not files inside it.
     - templates
+    - templates/**
     - .obsidian
     - Dailies
+    - Dailies/**
     - .stfolder
     - Clippings
     # Source of truth for [@citekey] citations, not a page or an asset.
@@ -116,6 +121,9 @@ plugins:
       linkCitations: true
       csl: https://raw.githubusercontent.com/suzumi-nagata/csl-styles/refs/heads/master/elsevier-vancouver.csl
     order: 85
+  - source: ./plugins/bibliography-heading
+    enabled: true
+    order: 86
   - source: "@quartz-community/hard-line-breaks"
     enabled: false
     order: 90
