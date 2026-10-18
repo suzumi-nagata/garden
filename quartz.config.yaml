@@ -124,6 +124,9 @@ plugins:
   - source: ./plugins/bibliography-heading
     enabled: true
     order: 86
+  - source: ./plugins/bibliography-links
+    enabled: true
+    order: 87
   - source: "@quartz-community/hard-line-breaks"
     enabled: false
     order: 90
