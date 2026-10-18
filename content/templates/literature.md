@@ -9,6 +9,8 @@ url: "{{URL}}"
 tags:
   - literature
 read: false
+noCite:
+  - "{{citekey}}"
 ---
 
 # Why I picked this up
