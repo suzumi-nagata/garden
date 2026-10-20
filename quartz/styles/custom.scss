@@ -86,6 +86,12 @@ article,
   h4 {
     font-size: 1.1rem;
   }
+  // The image optimizer emits intrinsic width/height on <img> for CLS. Base
+  // Quartz only sets `max-width: 100%`, which would shrink the width while
+  // leaving the attribute height fixed and distort the image.
+  img {
+    height: auto;
+  }
 }
 
 // Entry titles on folder/tag listing pages (v4's global h3 rule reached these)
