@@ -127,6 +127,12 @@ plugins:
   - source: ./plugins/bibliography-links
     enabled: true
     order: 87
+  - source: ./plugins/image-optimizer
+    enabled: true
+    options:
+      maxWidth: 1400
+      quality: 82
+    order: 95
   - source: "@quartz-community/hard-line-breaks"
     enabled: false
     order: 90
