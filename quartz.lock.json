@@ -7,6 +7,18 @@
       "commit": "local",
       "installedAt": "2026-10-08T02:41:17.429Z"
     },
+    "bibliography-heading": {
+      "source": "./plugins/bibliography-heading",
+      "resolved": "/home/nagata/garden/plugins/bibliography-heading",
+      "commit": "local",
+      "installedAt": "2026-10-19T23:02:16.887Z"
+    },
+    "bibliography-links": {
+      "source": "./plugins/bibliography-links",
+      "resolved": "/home/nagata/garden/plugins/bibliography-links",
+      "commit": "local",
+      "installedAt": "2026-10-19T23:02:16.888Z"
+    },
     "explorer-defaults": {
       "source": "./plugins/explorer-defaults",
       "resolved": "/home/nagata/garden/plugins/explorer-defaults",
@@ -18,6 +30,12 @@
       "resolved": "/home/nagata/garden/plugins/explorer-swipe",
       "commit": "local",
       "installedAt": "2026-10-08T02:41:17.429Z"
+    },
+    "image-optimizer": {
+      "source": "./plugins/image-optimizer",
+      "resolved": "/home/nagata/garden/plugins/image-optimizer",
+      "commit": "local",
+      "installedAt": "2026-10-19T23:02:16.888Z"
     },
     "tui": {
       "source": "github:quartz-community/tui",
