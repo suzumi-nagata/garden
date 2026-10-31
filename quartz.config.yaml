@@ -90,7 +90,16 @@ plugins:
     options:
       enableInHtmlEmbed: false
       enableCheckbox: true
+      # Diagrams are rendered to static SVG by ./plugins/pele-diagrams. Keeping
+      # Mermaid enabled here would also inject the Mermaid.js client script.
+      mermaid: false
     order: 30
+  - source: ./plugins/pele-diagrams
+    enabled: true
+    options:
+      maxWidth: 800
+      mobileMaxWidth: 390
+    order: 35
   - source: "@quartz-community/github-flavored-markdown"
     enabled: true
     order: 40
