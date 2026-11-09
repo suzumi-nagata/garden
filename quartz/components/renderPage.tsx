@@ -373,10 +373,18 @@ export function renderPage(
     componentData.ctx.argv.serve || !cfg.baseUrl
       ? ""
       : new URL(`https://${cfg.baseUrl}`).pathname.replace(/\/$/, "")
+  // Opt a single note into a page theme. Folder-wide themes use the slug
+  // prefix in their stylesheet; this attribute lets a note anywhere in the
+  // garden borrow a theme too. See quartz/styles/themes/_scopes.scss.
+  const frontmatterTheme = componentData.fileData.frontmatter?.["theme"]
+  const pageTheme =
+    typeof frontmatterTheme === "string" && frontmatterTheme.trim().length > 0
+      ? frontmatterTheme.trim()
+      : undefined
   const doc = (
     <html lang={lang} dir={direction}>
       <Head {...componentData} />
-      <body data-slug={slug} data-basepath={basePath}>
+      <body data-slug={slug} data-basepath={basePath} data-garden-theme={pageTheme}>
         {frame.css && <style dangerouslySetInnerHTML={{ __html: frame.css }} />}
         <div id="quartz-root" class="page" data-frame={frame.name}>
           <Body {...componentData}>

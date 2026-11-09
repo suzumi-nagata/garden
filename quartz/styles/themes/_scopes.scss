@@ -1,0 +1,42 @@
+// ---------------------------------------------------------------------------
+// Page-theme scoping helpers
+//
+// A theme is ordinary CSS scoped to the page's <body>. A page joins a theme in
+// either of two ways:
+//
+//   1. Folder: every page whose slug starts with "<folder>/" (the folder's own
+//      landing page included). Folder names are slugified by Quartz, so
+//      "SRS Grimoire" becomes "srs-grimoire".
+//   2. Note: `theme: <name>` in frontmatter. renderPage copies that value onto
+//      <body data-garden-theme="<name>">.
+//
+// Usage from a theme partial:
+//
+//   @include theme-scope("witch", "srs-grimoire") { ...light + shared... }
+//   @include theme-scope-dark("witch", "srs-grimoire") { ...dark tokens... }
+//
+// The base mixin intentionally includes :root so its rules outrank the
+// site-wide `:root[saved-theme="light"] body` rules in custom.scss.
+// ---------------------------------------------------------------------------
+
+@mixin theme-scope($theme, $folders...) {
+  $selectors: ':root body[data-garden-theme="#{$theme}"]';
+  @each $folder in $folders {
+    $selectors: '#{$selectors}, :root body[data-slug^="#{$folder}/"]';
+  }
+
+  #{$selectors} {
+    @content;
+  }
+}
+
+@mixin theme-scope-dark($theme, $folders...) {
+  $selectors: ':root[saved-theme="dark"] body[data-garden-theme="#{$theme}"]';
+  @each $folder in $folders {
+    $selectors: '#{$selectors}, :root[saved-theme="dark"] body[data-slug^="#{$folder}/"]';
+  }
+
+  #{$selectors} {
+    @content;
+  }
+}

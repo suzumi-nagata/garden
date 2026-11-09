@@ -1,0 +1,577 @@
+@use "../variables" as *;
+@use "./scopes" as *;
+
+// ---------------------------------------------------------------------------
+// SRS Grimoire — a candlelit spellbook skin for the surgery diary.
+//
+// Light mode is the daytime herb hut (parchment, moss, amethyst); dark mode is
+// the same hut after sunset (leather, candle-gold, potion glow). The grimoire
+// flat-lay lives inline on the landing page. Everything else is ink, paper,
+// and one recurring four-point star.
+//
+// The theme is attached to the "SRS Grimoire" folder (slug "srs-grimoire") and
+// can be attached to any individual note with `theme: witch` frontmatter.
+// ---------------------------------------------------------------------------
+
+@font-face {
+  font-family: "Alegreya";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("static/themes/srs-grimoire/fonts/alegreya-roman.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Alegreya";
+  font-style: italic;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("static/themes/srs-grimoire/fonts/alegreya-italic.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IM Fell English";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("static/themes/srs-grimoire/fonts/imfell-roman.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "IM Fell English";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("static/themes/srs-grimoire/fonts/imfell-italic.woff2") format("woff2");
+  unicode-range:
+    U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
+    U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+$landing: ':root body[data-slug="srs-grimoire/index"]';
+
+// ---------------------------------------------------------------------------
+// Tokens — light (daylight herb hut) and shared structure
+// ---------------------------------------------------------------------------
+
+@include theme-scope("witch", "srs-grimoire") {
+  --light: #f3e7d0;
+  --lightgray: #e7d5b5;
+  --gray: #746049;
+  --graph-link: #746049;
+  --darkgray: #463528;
+  --dark: #241a13;
+  --secondary: #4d683b;
+  --tertiary: #7a517e;
+  --highlight: rgba(77, 104, 59, 0.1);
+  --textHighlight: rgba(201, 148, 52, 0.28);
+
+  --titleFont: "IM Fell English", "Iowan Old Style", Georgia, serif;
+  --headerFont: "IM Fell English", "Iowan Old Style", Georgia, serif;
+  --bodyFont: "Alegreya", "Iowan Old Style", Georgia, serif;
+
+  --garden-gutter: clamp(1rem, 3vw, 2.5rem);
+  --garden-page: #f8f0dd;
+  --garden-panel: color-mix(in srgb, #f8f0dd 90%, transparent);
+  --garden-sheen: rgba(255, 252, 244, 0.3);
+  --garden-page-edge: color-mix(in srgb, #463528 18%, transparent);
+  --garden-rule: color-mix(in srgb, #8b765b 42%, transparent);
+  --garden-shadow: rgba(49, 34, 22, 0.55);
+  --garden-glow: rgba(255, 249, 233, 0.55);
+
+  font-size: 17.5px;
+  color: var(--darkgray);
+
+  background-color: var(--light);
+  background-image:
+    radial-gradient(ellipse at 12% 0%, var(--garden-glow), transparent 52%),
+    linear-gradient(
+      180deg,
+      var(--light) 0%,
+      color-mix(in srgb, var(--light) 93%, var(--lightgray)) 100%
+    );
+  background-attachment: scroll;
+  background-position: initial;
+  background-repeat: repeat;
+  background-size: auto;
+
+  // -------------------------------------------------------------------------
+  // The page itself
+  // -------------------------------------------------------------------------
+
+  #quartz-body .center {
+    position: relative;
+    margin-top: 0;
+    padding: var(--garden-gutter);
+    background-color: var(--garden-panel);
+    background-image: linear-gradient(180deg, var(--garden-sheen), transparent 18rem);
+    border: 1px solid var(--garden-page-edge);
+    border-radius: 3px;
+    box-shadow: 0 32px 72px -58px var(--garden-shadow);
+
+    @media all and ($desktop) {
+      margin-top: $topSpacing;
+    }
+
+    @media all and ($mobile) {
+      border-right: 0;
+      border-left: 0;
+      border-radius: 0;
+    }
+  }
+
+  // Page headers share the prose measure now that the landing illustration is
+  // a content image rather than a structural hero.
+  #quartz-body .page-header {
+    max-width: 48rem;
+    margin: 0 auto 1.5rem;
+    padding: 0;
+  }
+
+  // IM Fell's old-style figures turn "001" into "oo1". Keep the display face
+  // for prose headings, but give entry titles the body face's lining numerals.
+  &:not([data-slug="srs-grimoire/index"]) #quartz-body .page-header .article-title {
+    font-family: var(--bodyFont);
+    font-weight: 500;
+    letter-spacing: 0;
+  }
+
+  @media all and ($mobile) {
+    .breadcrumb-element:last-child {
+      display: none;
+    }
+
+    .breadcrumb-element:nth-last-child(2) p {
+      display: none;
+    }
+  }
+
+  #quartz-body .page-footer {
+    max-width: 48rem;
+    margin-inline: auto;
+  }
+
+  // quartz-fonts emits a literal `h1..h6 { font-family: Schibsted Grotesk }`
+  // resource after index.css, so overriding --headerFont alone is not enough.
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--headerFont);
+  }
+
+  #quartz-body .page-header .article-title {
+    margin: 0;
+    font-size: 2.35rem;
+    font-weight: 400;
+    line-height: 1.12;
+
+    &::after {
+      content: "";
+      display: block;
+      width: 3.25rem;
+      height: 1px;
+      margin-top: 0.9rem;
+      background-color: var(--tertiary);
+    }
+  }
+
+  // -------------------------------------------------------------------------
+  // Prose
+  // -------------------------------------------------------------------------
+
+  article {
+    max-width: 48rem;
+    margin-inline: auto;
+    background: none;
+    border: 0;
+    padding: 0;
+  }
+
+  article .markdown-preview-view {
+    > p {
+      margin: 0 0 1.05em;
+      line-height: 1.72;
+    }
+
+    > p:first-of-type::first-letter {
+      float: left;
+      padding: 0.14em 0.12em 0 0;
+      font-family: var(--titleFont);
+      font-size: 3.5em;
+      line-height: 0.78;
+      color: var(--tertiary);
+    }
+  }
+
+  article h1,
+  article h2,
+  article h3,
+  article h4,
+  article h5,
+  article h6 {
+    font-weight: 400;
+    letter-spacing: 0.005em;
+  }
+
+  article h1 {
+    font-size: 2.15rem;
+    line-height: 1.18;
+  }
+
+  article h2 {
+    margin-top: 2.2rem;
+    padding-bottom: 0.3rem;
+    font-size: 1.65rem;
+    border-bottom: 1px solid var(--garden-rule);
+  }
+
+  article h3 {
+    margin-top: 1.8rem;
+    font-size: 1.3rem;
+  }
+
+  article p,
+  article li {
+    line-height: 1.72;
+  }
+
+  article ul,
+  article ol {
+    padding-left: 1.35rem;
+  }
+
+  article li {
+    margin: 0.25rem 0;
+  }
+
+  article li::marker {
+    color: var(--tertiary);
+  }
+
+  article ol li::marker {
+    font-family: var(--headerFont);
+  }
+
+  article li > p {
+    margin: 0;
+  }
+
+  article a.internal,
+  .page-header a.internal {
+    padding: 0;
+    border-radius: 0;
+    border-bottom: 1px dotted color-mix(in srgb, var(--secondary) 55%, transparent);
+    background: none;
+    line-height: inherit;
+
+    &:hover {
+      border-bottom-color: var(--tertiary);
+    }
+  }
+
+  article a.tag-link,
+  .page-header a.tag-link {
+    padding: 0.05rem 0.45rem;
+    border: 1px solid var(--garden-rule);
+    border-bottom: 1px solid var(--garden-rule);
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--lightgray) 55%, transparent);
+    font-size: 0.82rem;
+
+    &::before {
+      color: var(--tertiary);
+    }
+  }
+
+  // The Alchemist's Log header. Lines separated by blank `>` lines become
+  // separate paragraphs, which this tightens back into a single panel.
+  article blockquote:not(.transclude) {
+    margin: 1.4rem 0;
+    padding: 0.9rem 1.1rem;
+    border: 1px solid var(--garden-rule);
+    border-left: 3px solid var(--tertiary);
+    border-radius: 2px;
+    background-color: color-mix(in srgb, var(--lightgray) 38%, transparent);
+
+    p {
+      margin: 0.12rem 0;
+      line-height: 1.55;
+    }
+
+    strong {
+      color: var(--dark);
+    }
+  }
+
+  article hr,
+  #quartz-body .center > hr {
+    position: relative;
+    height: 1.1rem;
+    margin: 2.2rem 0;
+    border: 0;
+    background-color: transparent;
+    background-image: linear-gradient(
+      90deg,
+      transparent 0%,
+      var(--garden-rule) 14%,
+      transparent 39%,
+      transparent 61%,
+      var(--garden-rule) 86%,
+      transparent 100%
+    );
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 1px;
+
+    &::after {
+      content: "✦";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -55%);
+      padding: 0 0.55rem;
+      background-color: transparent;
+      color: var(--tertiary);
+      font-size: 0.8rem;
+      line-height: 1;
+    }
+  }
+
+  article table {
+    border-collapse: collapse;
+
+    th {
+      border-bottom: 1px solid var(--gray);
+      color: var(--dark);
+      font-family: var(--headerFont);
+      font-weight: 400;
+    }
+
+    td,
+    th {
+      border-color: var(--garden-rule);
+    }
+
+    tbody tr:nth-child(even) td {
+      background-color: color-mix(in srgb, var(--lightgray) 30%, transparent);
+    }
+  }
+
+  article pre {
+    border-color: var(--garden-rule);
+  }
+
+  .callout {
+    border-radius: 2px;
+  }
+
+  // -------------------------------------------------------------------------
+  // Garden chrome
+  // -------------------------------------------------------------------------
+
+  .sidebar,
+  .toc {
+    background-color: color-mix(in srgb, var(--light) 76%, transparent);
+    border-radius: 2px;
+  }
+
+  .graph > .graph-outer {
+    border: 1px solid var(--garden-rule);
+    border-radius: 2px;
+    background-color: color-mix(in srgb, var(--light) 70%, transparent);
+    box-shadow: none;
+  }
+
+  .page-title,
+  .page-title a {
+    color: var(--dark);
+  }
+
+  // The automatic recency list duplicates the grimoire's Contents and breaks
+  // the book illusion; the book index is the landing page's Contents below.
+  .recent-notes {
+    display: none;
+  }
+
+  footer {
+    color: var(--gray);
+
+    a {
+      color: var(--secondary);
+    }
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [tabindex]:focus-visible {
+    outline: 2px solid var(--tertiary);
+    outline-offset: 3px;
+  }
+
+  // -------------------------------------------------------------------------
+  // The landing page: illustration + book index
+  // -------------------------------------------------------------------------
+
+  // The landing-specific rules must escape the theme-scope wrapper: its
+  // selector already starts with <body>, and nesting another <body> under it
+  // would produce an impossible "body body" descendant selector.
+  @at-root #{$landing} {
+    // The prologue reads a touch larger than an ordinary note.
+    .center > article .markdown-preview-view {
+      font-size: 1.04rem;
+    }
+
+    .center > article .markdown-preview-view ul li strong {
+      color: var(--dark);
+      font-family: var(--headerFont);
+      font-weight: 400;
+    }
+
+    // A real heading lives at the end of the prologue (index.md); the folder
+    // listing itself follows it.
+    .center > article h2#contents {
+      margin-top: 2.5rem;
+      padding-bottom: 0.45rem;
+      font-size: 1.9rem;
+      line-height: 1.2;
+    }
+
+    // The folder's automatic listing, dressed as a book's contents.
+    .page-listing {
+      max-width: 48rem;
+      margin: 0.75rem auto 0;
+
+      > p {
+        display: none;
+      }
+
+      ul.section-ul {
+        display: flex;
+        flex-direction: column;
+        margin-top: 0;
+      }
+
+      li.section-li {
+        margin-bottom: 0;
+      }
+
+      li.section-li > .section {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        grid-template-areas: "title date";
+        align-items: baseline;
+        column-gap: 1rem;
+        padding: 0.45rem 0;
+        border-bottom: 1px dotted var(--garden-rule);
+      }
+
+      .desc {
+        display: flex;
+        grid-area: title;
+        align-items: baseline;
+        gap: 0.55rem;
+        min-width: 0;
+
+        &::after {
+          content: "";
+          flex: 1;
+          min-width: 1.5rem;
+          border-bottom: 1px dotted var(--garden-rule);
+          transform: translateY(-0.28em);
+        }
+
+        h3 {
+          margin: 0;
+          font-family: var(--bodyFont);
+          font-size: 1.15rem;
+          font-weight: 500;
+          line-height: 1.35;
+        }
+
+        h3 a {
+          color: var(--darkgray);
+
+          &:hover {
+            color: var(--tertiary);
+          }
+        }
+      }
+
+      .meta {
+        grid-area: date;
+        margin: 0;
+        color: var(--gray);
+        font-size: 0.85rem;
+        text-align: right;
+        white-space: nowrap;
+      }
+
+      .meta time {
+        font-variant-numeric: tabular-nums;
+      }
+
+      .tags {
+        display: none;
+      }
+
+      ul.section-ul:empty::after {
+        content: "The first page is waiting to be written.";
+        display: block;
+        padding: 0.85rem 0 0;
+        color: var(--gray);
+        font-style: italic;
+      }
+
+      @media all and ($mobile) {
+        li.section-li > .section {
+          column-gap: 0.65rem;
+        }
+
+        .desc h3 {
+          font-size: 1.05rem;
+        }
+
+        .meta {
+          font-size: 0.78rem;
+        }
+      }
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Tokens — dark (candlelit hut)
+// ---------------------------------------------------------------------------
+
+@include theme-scope-dark("witch", "srs-grimoire") {
+  --light: #17110d;
+  --lightgray: #251b15;
+  --gray: #9a846a;
+  --graph-link: #9a846a;
+  --darkgray: #e3d2b7;
+  --dark: #f7ecd7;
+  --secondary: #a9c47c;
+  --tertiary: #c99fe0;
+  --highlight: rgba(169, 196, 124, 0.12);
+  --textHighlight: rgba(201, 148, 52, 0.3);
+
+  --garden-page: #1c1510;
+  --garden-panel: color-mix(in srgb, #1c1510 90%, transparent);
+  --garden-sheen: rgba(255, 255, 255, 0.02);
+  --garden-page-edge: color-mix(in srgb, #f7ecd7 14%, transparent);
+  --garden-rule: color-mix(in srgb, #9a846a 38%, transparent);
+  --garden-shadow: rgba(0, 0, 0, 0.78);
+  --garden-glow: rgba(214, 160, 63, 0.07);
+}

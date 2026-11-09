@@ -17,3 +17,6 @@ Clippings
 content/Read Later.md
 plugins/*/node_modules
 auto
+# Personal phrasebook for the SRS Grimoire; local to the vault, not published
+# by Quartz and not committed to the public repository.
+content/templates/grimoire-phrasebook.md
