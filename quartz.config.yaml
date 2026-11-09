@@ -22,6 +22,7 @@ configuration:
     - Clippings
     # Source of truth for [@citekey] citations, not a page or an asset.
     - bibliography.bib
+    - elsevier-vancouver.csl
   theme:
     fontOrigin: googleFonts
     cdnCaching: true
@@ -50,6 +51,11 @@ configuration:
         tertiary: "#00ffff"
         highlight: rgba(176, 99, 224, 0.1)
         textHighlight: "#b3aa0288"
+  links:
+    markdownLinkResolution: shortest
+  contentIndex:
+    enableSiteMap: true
+    enableRSS: true
 plugins:
   - source: "@quartz-community/note-properties"
     enabled: true
@@ -61,8 +67,6 @@ plugins:
         - aliases
       excludedProperties: []
       hidePropertiesView: true
-      delimiters: ---
-      language: yaml
     order: 5
     layout:
       position: beforeBody
@@ -90,16 +94,9 @@ plugins:
     options:
       enableInHtmlEmbed: false
       enableCheckbox: true
-      # Diagrams are rendered to static SVG by ./plugins/pele-diagrams. Keeping
-      # Mermaid enabled here would also inject the Mermaid.js client script.
-      mermaid: false
+      mermaid: true
+      diagramRenderer: pele
     order: 30
-  - source: ./plugins/pele-diagrams
-    enabled: true
-    options:
-      maxWidth: 800
-      mobileMaxWidth: 390
-    order: 35
   - source: "@quartz-community/github-flavored-markdown"
     enabled: true
     order: 40
@@ -110,11 +107,6 @@ plugins:
       position: right
       priority: 30
       display: desktop-only
-  - source: "@quartz-community/crawl-links"
-    enabled: true
-    options:
-      markdownLinkResolution: shortest
-    order: 60
   - source: "@quartz-community/description"
     enabled: true
     order: 70
@@ -128,7 +120,7 @@ plugins:
     options:
       bibliographyFile: "./content/bibliography.bib"
       linkCitations: true
-      csl: https://raw.githubusercontent.com/suzumi-nagata/csl-styles/refs/heads/master/elsevier-vancouver.csl
+      csl: ./content/elsevier-vancouver.csl
     order: 85
   - source: ./plugins/bibliography-heading
     enabled: true
@@ -142,9 +134,6 @@ plugins:
       maxWidth: 1400
       quality: 82
     order: 95
-  - source: "@quartz-community/hard-line-breaks"
-    enabled: false
-    order: 90
   - source: "@quartz-community/ox-hugo"
     enabled: false
     order: 91
@@ -158,17 +147,10 @@ plugins:
     options:
       theme: tokyo-night
       mode: both
-  - source: "@quartz-community/remove-draft"
-    enabled: true
   - source: "@quartz-community/explicit-publish"
     enabled: false
   - source: "@quartz-community/alias-redirects"
     enabled: true
-  - source: "@quartz-community/content-index"
-    enabled: true
-    options:
-      enableSiteMap: true
-      enableRSS: true
   - source: "@quartz-community/favicon"
     enabled: true
   - source: "@quartz-community/og-image"
@@ -309,7 +291,7 @@ plugins:
   - source: ./plugins/explorer-defaults
     enabled: true
   - source: github:quartz-community/tui
-    enabled: true
+    enabled: false
     options: {}
     order: 50
 layout:
