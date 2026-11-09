@@ -7,13 +7,13 @@ tags:
 
 > **[ 📜 Entry ]** 00X
 >
-> **[ 🌙 Phase ]** —
+> **[ 🌙 Phase ]** -
 >
 > **[ ⏳ Timeline ]** Pre-Op Day -X / Day +X
 >
-> **[ 🧭 Alignment ]** —
+> **[ 🧭 Alignment ]** -
 >
-> **[ 🔋 Mana Level ]** High / Low / 40% — excited but tired
+> **[ 🔋 Mana Level ]** High / Low / 40% - excited but tired
 >
 > **[ 🩹 Vessel Status ]** Normal / 2/10 pain / healing well
 >
@@ -28,7 +28,7 @@ Zumi
 _Return to [[SRS Grimoire/index|the Grimoire]]._
 
 %%
-Phrase palette — delete this block once you have picked one.
+Phrase palette - delete this block once you have picked one.
 
 Openers: Current Alignment: · To the Keepers of this Tome: · Notes from the Apothecary: · Incantation Log, Day [X]: · Gathering the Reagents: · Brewing Status: · Entering the Circle: · Healing Potion Update, Day [X]: · Stitches & Sorcery: · From the Recovery Cauldron:
 

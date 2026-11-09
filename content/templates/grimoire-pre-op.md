@@ -11,9 +11,9 @@ tags:
 >
 > **[ ⏳ Timeline ]** Pre-Op Day -X
 >
-> **[ 🧭 Alignment ]** —
+> **[ 🧭 Alignment ]** -
 >
-> **[ 🔋 Mana Level ]** High / Low / 40% — excited but tired
+> **[ 🔋 Mana Level ]** High / Low / 40% - excited but tired
 >
 > **[ 🩹 Vessel Status ]** Normal / 2/10 pain / healing well
 >

@@ -1,6 +1,6 @@
 ---
 title: "Zumi's SRS Grimoire"
-description: "A spell log of becoming — surgery notes from the other side of the table."
+description: "A spell log of becoming - surgery notes from the other side of the table."
 cover: grimoire-og.jpeg
 theme: witch
 tags:
