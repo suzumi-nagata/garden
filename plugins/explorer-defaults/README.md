@@ -24,7 +24,25 @@ changes.
 any folder without a saved entry as collapsed, and ships markup with nowhere to
 put a button. So both behaviours are applied to the _rendered_ tree by a
 MutationObserver on the explorer element — the observer callback runs in the
-task that wrote the tree, before the browser paints it, so nothing flickers.
+task that wrote the tree, before the browser paints it, so the empty tree is
+never shown.
+
+Opening a folder after insertion is still a style change, though, and the
+explorer's stylesheet transitions the unfold (`grid-template-rows` and the
+chevron rotation, 0.3s). Left alone, every navigation would replay that unfold
+for every folder without saved state, which reads as the tree flickering open
+as the page changes. The default open therefore runs with transitions
+suppressed on the explorer (`.explorer-applying-defaults`) and flushes the
+opened state before restoring them; a folder the reader folds or unfolds by
+hand keeps its animation.
+
+The default open also runs before the explorer's own scroll restore can work:
+upstream re-applies the saved `explorerScrollTop` immediately after rebuilding
+the tree, while the default folders are still collapsed, so the list is too
+short, the assignment clamps to the top, and it is never retried. Once the
+folders are open (and the toggle row has settled, which can change the header
+height), the plugin re-applies the saved scroll position so a reader who
+navigates from lower down the tree stays where they were.
 
 The injected button does not survive a SPA navigation: micromorph compares
 children by index, so an extra node is replaced by whatever the fetched HTML has

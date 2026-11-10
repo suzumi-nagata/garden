@@ -32,6 +32,8 @@ const script = `
 
   // Where the explorer keeps per-folder fold state: [{ path, collapsed }, ...]
   const STORAGE_KEY = "fileTree"
+  // Where the explorer keeps the tree's scroll position across navigations
+  const SCROLL_KEY = "explorerScrollTop"
   const TOGGLE_CLASS = "explorer-expand-toggle"
   const LABELS = {
     expand: "Expand all folders",
@@ -110,11 +112,43 @@ const script = `
   // browser show the whole tree. Only ever opens: the explorer has already run
   // its own "open the folders on the way to this page" rule by now, so a
   // folder is collapsed only because it was saved that way.
+  //
+  // The explorer inserts the rendered tree collapsed and its stylesheet
+  // animates the unfold (grid-template-rows 0fr -> 1fr, plus the chevron
+  // rotation) over 0.3s. Adding the open class after insertion therefore restarts
+  // that animation on every navigation for every folder without saved state,
+  // which reads as the tree flickering open as the page changes. Run the
+  // default open with transitions disabled and flush the resulting styles
+  // before restoring them, so the folders simply appear open.
   const applyDefaultOpen = (explorer) => {
     const saved = readSaved()
+    const toOpen = []
     for (const folder of foldersOf(explorer)) {
-      if (!saved.has(folder.path)) folder.outer.classList.add("open")
+      if (!saved.has(folder.path) && !isOpen(folder)) toOpen.push(folder.outer)
     }
+    if (toOpen.length === 0) return false
+    explorer.classList.add("explorer-applying-defaults")
+    try {
+      for (const outer of toOpen) outer.classList.add("open")
+      void explorer.offsetHeight
+    } finally {
+      explorer.classList.remove("explorer-applying-defaults")
+    }
+    return true
+  }
+
+  // The explorer restores its saved scroll position immediately after
+  // rebuilding the tree, while these folders are still collapsed. The list is
+  // too short at that point, so the restore clamps to the top and is never
+  // retried. Re-apply it once the opened folders (and the toggle button that
+  // changes the header height) have settled, so the tree stays where the
+  // reader left it.
+  const restoreScroll = (explorer) => {
+    const ul = explorer.querySelector(".explorer-ul")
+    if (!ul) return
+    const top = parseInt(sessionStorage.getItem(SCROLL_KEY) || "", 10)
+    if (!Number.isFinite(top)) return
+    ul.scrollTop = top
   }
 
   const buildToggle = (explorer, variant) => {
@@ -160,8 +194,11 @@ const script = `
 
   const refresh = (explorer) => {
     addToggles(explorer)
-    applyDefaultOpen(explorer)
+    const opened = applyDefaultOpen(explorer)
     syncToggles(explorer)
+    // applyDefaultOpen must finish first; syncToggles can change the header
+    // height, so the scroll restore waits until both have run.
+    if (opened) restoreScroll(explorer)
   }
 
   const watched = new WeakSet()
@@ -190,6 +227,11 @@ const script = `
 
 const css = `
 /* Expand/collapse-all control for the explorer (plugin: explorer-defaults). */
+.explorer-applying-defaults .folder-outer,
+.explorer-applying-defaults .folder-icon {
+  transition: none !important;
+}
+
 .explorer-header {
   display: flex;
   align-items: center;
