@@ -35,6 +35,8 @@ const script = `
   // Where the explorer keeps the tree's scroll position across navigations
   const SCROLL_KEY = "explorerScrollTop"
   const TOGGLE_CLASS = "explorer-expand-toggle"
+  // Holds the mobile drawer shut while the explorer is still booting
+  const BOOT_CLASS = "explorer-booting"
   const LABELS = {
     expand: "Expand all folders",
     collapse: "Collapse all folders",
@@ -201,6 +203,37 @@ const script = `
     if (opened) restoreScroll(explorer)
   }
 
+  // The server-rendered explorer carries no collapsed class, and the only
+  // thing keeping its mobile drawer hidden before the explorer's script runs
+  // is the hide-until-loaded display:none guard. When that script removes
+  // the guard it collapses the drawer in the same task — but the explorer's
+  // stylesheet also establishes its slide transition (transform 0 -> -100vw,
+  // 200ms) the first time it applies, so on a cold load the drawer is painted
+  // open for a frame and then animates shut. That reads as a flicker to a
+  // first-time reader.
+  //
+  // Add the boot class before any of that: the stylesheet pins the drawer
+  // off-screen with transitions disabled until the explorer has published its
+  // own state. Then release it, handing the drawer back to the explorer so
+  // opening and closing keep their animations.
+  const boot = (explorer) => {
+    if (explorer.classList.contains(BOOT_CLASS)) return
+    explorer.classList.add(BOOT_CLASS)
+    const release = () => {
+      const button = explorer.querySelector(".mobile-explorer")
+      if (button && button.classList.contains("hide-until-loaded")) {
+        requestAnimationFrame(release)
+        return
+      }
+      // The guard is removed in the same task that collapses the drawer;
+      // wait two frames so that state is in place before transitions return.
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => explorer.classList.remove(BOOT_CLASS))
+      })
+    }
+    requestAnimationFrame(release)
+  }
+
   const watched = new WeakSet()
   const watch = (explorer) => {
     if (watched.has(explorer)) return
@@ -215,6 +248,7 @@ const script = `
   // buttons) and on every tree the explorer renders.
   const init = () => {
     for (const explorer of document.querySelectorAll(".explorer")) {
+      boot(explorer)
       watch(explorer)
       refresh(explorer)
     }
@@ -230,6 +264,17 @@ const css = `
 .explorer-applying-defaults .folder-outer,
 .explorer-applying-defaults .folder-icon {
   transition: none !important;
+}
+
+/* While the explorer is booting, the mobile drawer stays shut. Without this,
+   its first stylesheet application can paint it open and then animate it
+   closed before the explorer's own script has decided its state. */
+@media all and (max-width: 800px) {
+  .explorer.explorer-booting > .explorer-content {
+    transform: translateX(-100vw) !important;
+    visibility: hidden !important;
+    transition: none !important;
+  }
 }
 
 .explorer-header {

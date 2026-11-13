@@ -27,6 +27,17 @@ MutationObserver on the explorer element — the observer callback runs in the
 task that wrote the tree, before the browser paints it, so the empty tree is
 never shown.
 
+On mobile, the markup arrives without `collapsed`; the only thing keeping the
+drawer hidden before the explorer's script runs is the `hide-until-loaded`
+display:none guard on the hamburger. The first time the explorer's stylesheet
+applies, it gives the drawer both its off-screen transform (0 -> -100vw) and
+its 200ms transition in the same style update, so a cold load paints the drawer
+open for one frame and then animates it shut. The plugin adds
+`.explorer-booting` before that: while the class is present the stylesheet pins
+the drawer off-screen with transitions disabled. It is released two frames
+after the explorer has removed the guard and collapsed the drawer, so the
+drawer simply starts closed while opening and closing keep their animation.
+
 Opening a folder after insertion is still a style change, though, and the
 explorer's stylesheet transitions the unfold (`grid-template-rows` and the
 chevron rotation, 0.3s). Left alone, every navigation would replay that unfold
